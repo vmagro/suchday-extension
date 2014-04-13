@@ -12,6 +12,7 @@
   "permissions" : [
     "background",
     "pushMessaging",
+    "tabs",
     "http://dash.ptzlabs.com/"
   ]
 }
