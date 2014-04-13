@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+
+  "name": "DashCast",
+  "description": "Companion extension for DashCast",
+  "version": "1.0",
+
+  "background": {
+    "scripts": ["background.js"]
+  },
+
+  "permissions" : [
+    "background"
+  ]
+}
