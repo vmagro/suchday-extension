@@ -2,7 +2,7 @@
 var baseUrl = 'http://dash.ptzlabs.com/';
 var userId = '102190104458073909670';
 var mode = 'blank';
-var lastPageId;
+var windowId;
 
 function poll(){
   var xhr = new XMLHttpRequest();
@@ -21,12 +21,21 @@ function poll(){
 }
 
 function update(){
-  if(!lastPageId)
+  if(!windowId){
     chrome.windows.create({'url': 'http://ptzlabs.com/dw', 'type': 'popup'}, function(window) {
       chrome.windows.update(window.id, {state: 'fullscreen'});
-      lastPageId = window.id;
+      windowId = window.id;
     });
-  chrome.windows.update(window.id, {state: 'fullscreen', focused: true});
+  }
+  chrome.windows.get(windowId, function(window){
+    if(!window){
+      chrome.windows.create({'url': 'http://ptzlabs.com/dw', 'type': 'popup'}, function(window) {
+        chrome.windows.update(window.id, {state: 'fullscreen'});
+        windowId = window.id;
+      });
+    }
+    chrome.windows.update(windowId, {state: 'fullscreen', focused: true});
+  });
 }
 
 poll();
